@@ -10,6 +10,6 @@ function Login() {
     )
 }
 
-class LogOn extends React.Component{
-
+function setCookie(cname, cpassword) {
+    document.cookie = cname + "=" + cpassword;
 }
