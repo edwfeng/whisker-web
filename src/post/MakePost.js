@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import API_BASE_URL from "../utils.js";
-import "./post.css";
+import "./MakePost.css";
 
 class MakePost extends React.Component {
     constructor() {
