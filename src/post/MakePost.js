@@ -53,9 +53,9 @@ class MakePost extends React.Component {
                 </label>
                 <label>
                     Text:
-                    <input type="text" name="body" />
+                    <input type="text" name="body" onChange={this.handleBodyChange} />
                 </label>
-                <input type="submit" value="Submit" onChange={this.handleBodyChange} />
+                <input type="submit" value="Submit" />
             </form>
         );
     }
