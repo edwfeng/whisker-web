@@ -2,6 +2,7 @@ import React from 'react';
 import axios from "axios";
 import './Login.css';
 import setCookie from "../utils.js";
+import checkCookie from "../utils.js";
 
 class Login extends React.Component {
     constructor() {
@@ -23,7 +24,8 @@ class Login extends React.Component {
             pass: this.state.pass
         })
             .then(function (res) {
-                setCookie(this.state.user, this.state.pass)
+                setCookie(this.state.user, this.state.pass);
+                checkCookie();
             })
             .catch(function (err) {
                 alert("Sorry, we experienced an error! Please try again later.");
