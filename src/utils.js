@@ -1,3 +1,6 @@
+// https://www.w3schools.com/js/js_cookies.asp
+// change it if you want
+
 export function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
