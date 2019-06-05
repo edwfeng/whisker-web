@@ -14,6 +14,7 @@ const routing = (
                 </li>
             </ul>
             <Route exact path="/" component={App} />
+            <Route path="/newUser"component={App}/>
         </div>
     </Router>
 )
