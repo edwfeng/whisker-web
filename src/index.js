@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
 import App from './App';
+import Post from "./post/Post";
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -14,6 +15,7 @@ const routing = (
                 </li>
             </ul>
             <Route exact path="/" component={App} />
+            <Route path="/post/:postId" component={Post} />
         </div>
     </Router>
 )
