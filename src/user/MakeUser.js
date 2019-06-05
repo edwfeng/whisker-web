@@ -8,6 +8,7 @@ import createCookie from "../utils";
 
 class User extends React.Component {
     constructor() {
+        super();
         this.state = {user: "", pass: ""};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -19,10 +20,7 @@ class User extends React.Component {
             alert("You need a password and username.");
             return 1;
         }
-        else if(this.state.username in API_BASE_URL + "/users"){
-            alert("Username already taken. Please choose another one")
-        }
-
+    
         axios.post(API_BASE_URL + "/users", {
             username: this.state.user,
             password: this.state.pass
@@ -37,7 +35,7 @@ class User extends React.Component {
         event.preventDefault();
     }
 
-    handleUsernameChange(event) {                                    //IDK if this and password are nessecary?
+    handleUsernameChange(event) {                                    
         this.state.user = str(event.target.value);
     }
 
