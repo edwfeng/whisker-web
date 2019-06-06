@@ -4,6 +4,7 @@ import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import Post from "./post/Post";
+import MakePost from "./post/MakePost";
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -13,9 +14,14 @@ const routing = (
                 <li>
                     <Link to="/">Home</Link>
                 </li>
+                <li>
+                    <Link to="/newpost">Post</Link>
+                </li>
             </ul>
             <Route exact path="/" component={App} />
-            <Route path="/post/:postId" component={Post} />
+            <Route exact path="/post/:postId" component={Post} />
+            <Route path="/post/:postId/reply" component={MakePost} />
+            <Route path="/newpost" component={MakePost} />
         </div>
     </Router>
 )
