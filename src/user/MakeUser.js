@@ -1,12 +1,10 @@
 import React from "react";
 import axios from "axios";
 import API_BASE_URL from "../utils.js";
-import "./post.css";
-import createCookie from "../utils";
+import "./MakeUser.css";
+import { setCookie } from "../utils";
 
-// TODO
-
-class User extends React.Component {
+class MakeUser extends React.Component {
     constructor() {
         super();
         this.state = {user: "", pass: ""};
@@ -16,17 +14,17 @@ class User extends React.Component {
     }
 
     handleSubmit(event) {
-        if (this.state.user == "" || this.state.pass == "") {
+        if (this.state.user === "" || this.state.pass === "") {
             alert("You need a password and username.");
             return 1;
         }
     
         axios.post(API_BASE_URL + "/users", {
-            username: this.state.user,
-            password: this.state.pass
+            user: this.state.user,
+            pass: this.state.pass
         })
         .then(function (res) {
-            setCookie(this.state.user, this.state.pass);
+            setCookie(res.data.token);
         })
         .catch(function (err) {
             alert("Sorry, we experienced an error! Please try again later.");
@@ -36,11 +34,11 @@ class User extends React.Component {
     }
 
     handleUsernameChange(event) {                                    
-        this.state.user = str(event.target.value);
+        this.setState({user:event.target.value.toString()})
     }
 
     handlePasswordChange(event) {
-        this.state.pass = str(event.target.value);
+        this.setState({pass:event.target.value.toString()})
     }
     //render done
     render() {
@@ -57,8 +55,8 @@ class User extends React.Component {
                 <input type="submit" value="Submit" />
             </form>
         );
-        //done
+     
     }
 }
 
-export default MakePost;
+export default MakeUser;
