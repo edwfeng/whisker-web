@@ -1,9 +1,7 @@
 import React from 'react';
 import axios from "axios";
 import './Login.css';
-import setCookie from "../utils.js";
-import checkCookie from "../utils.js";
-import API_BASE_URL from "../utils";
+import { setCookie, API_BASE_URL } from "../utils.js";
 
 class Login extends React.Component {
     constructor() {
@@ -20,16 +18,13 @@ class Login extends React.Component {
             return 1;
         }
 
-        console.log(API_BASE_URL + "/login");
-        console.log(this.state);
-
         axios.post(API_BASE_URL + "/login", {
             user: this.state.user,
             pass: this.state.pass
         })
             .then(function (res) {
-                setCookie(this.state.user, this.state.pass);
-                checkCookie();
+                setCookie(res.data.token);
+                console.log(res);
             })
             .catch(function (err) {
                 alert("Sorry, we experienced an error! Please try again later.");
@@ -40,10 +35,12 @@ class Login extends React.Component {
 
     handleUsernameChange(event) {
         this.setState({user: event.target.value.toString()})
+        console.log(this.state)
     }
 
     handlePasswordChange(event) {
         this.setState({pass: event.target.value.toString()})
+        console.log(this.state)
     }
 
     render() {
