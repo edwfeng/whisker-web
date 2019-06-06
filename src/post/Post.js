@@ -9,7 +9,8 @@ class Post extends React.Component {
         this.state = {
             title: "",
             body: "",
-            author: ""
+            author: "",
+            id: ""
         }
     }
 
@@ -25,20 +26,20 @@ class Post extends React.Component {
     }
     
     getData(postId, thing) {
+        thing.setState({id: postId});
         axios.get(API_BASE_URL + "/posts/" + postId)
         .then(function (res) {
-            thing.setState({title: res.data.title, body: res.data.text});
             axios.get(API_BASE_URL + "/userid/" + res.data.user_id)
             .then(function (user_res) {
-                thing.setState({author: user_res.data.user});
+                thing.setState({title: res.data.title, body: res.data.text, author: user_res.data.user});
             })
             .catch(function (err) {
-                alert("Sorry, we experienced an error! Please try again later.");
+                thing.setState({title: res.data.title, body: res.data.text, author: "User not found!"});
                 console.log(err);
             })
         })
         .catch(function (err) {
-            alert("Sorry, we experienced an error! Please try again later.");
+            alert("Sorry, we experienced an error fetching post data! Please try again later.");
             console.log(err);
         })
     }
@@ -49,9 +50,9 @@ class Post extends React.Component {
                 <h1>{this.state.title}</h1>
                 <p>{this.state.body}</p>
                 <hr />
-                <h2>By: {this.state.author}</h2>
+                <h3>By: {this.state.author}</h3>
             </div>
-    );
+        );
     }
 }
 
