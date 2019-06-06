@@ -3,6 +3,7 @@ import axios from "axios";
 import './Login.css';
 import setCookie from "../utils.js";
 import checkCookie from "../utils.js";
+import API_BASE_URL from "../utils";
 
 class Login extends React.Component {
     constructor() {
@@ -14,10 +15,13 @@ class Login extends React.Component {
     }
 
     handleSubmit(event) {
-        if (this.state.user == "" || this.state.pass == "") {
+        if (this.state.user === "" || this.state.pass === "") {
             alert("Please type in your username and password.");
             return 1;
         }
+
+        console.log(API_BASE_URL + "/login");
+        console.log(this.state);
 
         axios.post(API_BASE_URL + "/login", {
             user: this.state.user,
@@ -35,26 +39,29 @@ class Login extends React.Component {
     }
 
     handleUsernameChange(event) {
-        this.state.user = str(event.target.value);
+        this.setState({user: event.target.value.toString()})
     }
 
     handlePasswordChange(event) {
-        this.state.pass = str(event.target.value);
+        this.setState({pass: event.target.value.toString()})
     }
 
     render() {
         return (
             <form className="Login" onSubmit={this.handleSubmit}>
                 <label>
-                    Title:
+                    Username:
                     <input type="text" name="username" onChange={this.handleUsernameChange} />
                 </label>
+                <br />
                 <label>
-                    Text:
-                    <input type="text" name="password" onChange={this.handlePasswordChange} />
+                    Password:
+                    <input type="password" name="password" onChange={this.handlePasswordChange} />
                 </label>
                 <input type="submit" value="Submit" />
             </form>
         );
     }
 }
+
+export default Login;
