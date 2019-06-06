@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import Post from "./post/Post";
 import Login from "./login/Login";
+import MakeUser from "./user/MakeUser";
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -16,6 +17,7 @@ const routing = (
                 </li>
             </ul>
             <Route exact path="/" component={App} />
+            <Route path="/signup"component={MakeUser}/>
             <Route path="/post/:postId" component={Post} />
             <Route path="/login" component={Login} />
         </div>
