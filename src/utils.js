@@ -29,5 +29,7 @@ export function getCookie(cname) {
 //     }
 // }
 
+export const NUM_POSTS_PER_PAGE = 50;
+
 export const API_BASE_URL = "http://localhost:5000";
 export default API_BASE_URL;
