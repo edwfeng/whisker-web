@@ -1,0 +1,21 @@
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:300);
+
+.signup {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto
+}
+.Users {
+  position: static;
+  text-align: center;
+  z-index: 1;
+  background: rgb(212, 4, 4);
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+}
+body {
+    background: #ee840b; /* for old browsers just in case cause maybe?*/ 
+    font-family: "Fira Sans", sans-serif;
+}
