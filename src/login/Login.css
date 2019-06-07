@@ -1,3 +1,17 @@
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:300);
+
 .Login {
-    text-align: left;
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+    position: static;
+    text-align: center;
+    z-index: 1;
+    background: rgb(212, 4, 4);
+    max-width: 360px;
+}
+
+body {
+    background: #ee840b; /* for old browsers just in case cause maybe?*/
+    font-family: "Fira Sans", sans-serif;
 }
