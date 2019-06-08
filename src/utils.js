@@ -45,7 +45,7 @@ export function postDateFormat(postDate, editDate) {
         postDate.toLocaleDateString(date_localization) :
         postDate.toLocaleDateString(date_localization, date_time_options);
 
-    if (postDate.toDateString() !== editDate.toDateString()) {
+    if (postDate.getTime() !== editDate.getTime()) {
         result += " (last edited ";
         result += dateIsBeforeToday(editDate) ?
             editDate.toLocaleDateString(date_localization) :

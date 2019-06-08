@@ -86,14 +86,17 @@ class Post extends React.Component {
         let ePost = (this.state.curPage + 1) * NUM_POSTS_PER_PAGE > this.state.tReplies ?
             this.state.tReplies :
             (this.state.curPage + 1) * NUM_POSTS_PER_PAGE;
-        let viewString = ePost <= NUM_POSTS_PER_PAGE ?
+        let viewString = this.state.tPages === 1 ?
             "Viewing all replies":
-            "Viewing replies " + sPost + "→" + ePost;
+            "Viewing repl" + (sPost === ePost ?
+                "y " + sPost :
+                "ies " + sPost + "→" + ePost);
 
         return (
             <div className="replies" >
                 <h5>{viewString}</h5>
-                <h6 onClick={() => this.getReplies()}>Refresh replies</h6>
+                <h4 style={{display: "flex"}}>{this.renderReplyPages()}</h4>
+                <h6 className="canClick" onClick={() => this.getReplies()}>Refresh replies</h6>
                 {this.renderRepliesList()}
             </div>
         )
@@ -103,10 +106,40 @@ class Post extends React.Component {
         return (
             this.state.replies.map((reply) => 
                 <div className="reply" key={reply._id}>
-                    <h4><Link to={"/post/" + reply._id} onClick={this.forceUpdate}>{reply.title}</Link></h4>
+                    <h4><Link to={"/post/" + reply._id} onClick={this.forceUpdate}>{reply.title}&nbsp;</Link></h4>
                     <h5>By: {reply.user} on {postDateFormat(reply.date, reply.edit)}</h5>
                 </div>
             )
+        )
+    }
+
+    renderReplyPages() {
+        if (this.state.tPages === 1) {
+            return (<div id="Empty div"></div>);
+        }
+
+        let numbers = Array.from(Array(this.state.tPages).keys());
+        return(
+            numbers.map((page) => {
+                if (page === this.state.curPage) {
+                    return (<div key={page}>{page + 1}&nbsp;</div>)
+                }
+
+                return (
+                    <div className="canClick" key={page}
+                        onClick={() => {
+                            console.log(this.state);
+                            // eslint-disable-next-line
+                            this.state.curPage = page;
+                            // I tried this.setState() but it didn't work, so...
+                            console.log(this.state);
+                            console.log(page+1)
+                            this.getReplies();
+                        }} >
+                        {page + 1}&nbsp;
+                    </div>
+                )
+            })
         )
     }
 
