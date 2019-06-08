@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { API_BASE_URL, NUM_POSTS_PER_PAGE } from "../utils.js";
+import { API_BASE_URL, NUM_POSTS_PER_PAGE, postDateFormat } from "../utils.js";
 import { Link } from "react-router-dom";
 import "./Post.css";
 
@@ -12,6 +12,8 @@ class Post extends React.Component {
             body: "",
             author: "",
             id: "",
+            date: new Date(),
+            edit: new Date(),
             replies: [],
             tReplies: 0,
             curPage: 0,
@@ -34,16 +36,15 @@ class Post extends React.Component {
         thing.setState({id: postId});
         axios.get(API_BASE_URL + "/posts/" + postId)
         .then(function (res) {
-            axios.get(API_BASE_URL + "/userid/" + res.data.user_id)
-            .then(function (user_res) {
-                thing.setState({title: res.data.title, body: res.data.text, id: res.data._id, author: user_res.data.user});
-                thing.getReplies();
-            })
-            .catch(function (err) {
-                thing.setState({title: res.data.title, body: res.data.text, id: res.data._id, author: "User not found!"});
-                thing.getReplies();
-                console.log(err);
-            })
+            thing.setState({
+                title: res.data.title,
+                body: res.data.text,
+                id: res.data._id,
+                author:res.data.user,
+                date: new Date(res.data.created_at),
+                edit: new Date(res.data.updated_at)
+            });
+            thing.getReplies();
         })
         .catch(function (err) {
             alert("Sorry, we experienced an error fetching post data! Please try again later.");
@@ -56,7 +57,13 @@ class Post extends React.Component {
             const res = await axios.get(API_BASE_URL + "/posts/" + this.state.id + "/replies/" + this.state.curPage);
             let posts = [];
             res.data.posts.forEach(post => {
-                posts.push({_id: post._id, title: post.title, user: post.user});
+                posts.push({
+                    _id: post._id,
+                    title: post.title,
+                    user: post.user,
+                    date: new Date(post.created_at),
+                    edit: new Date(post.updated_at)
+                });
             })
             let tReplies = res.data.length;
             let tPages = res.data.pages;
@@ -79,10 +86,13 @@ class Post extends React.Component {
         let ePost = (this.state.curPage + 1) * NUM_POSTS_PER_PAGE > this.state.tReplies ?
             this.state.tReplies :
             (this.state.curPage + 1) * NUM_POSTS_PER_PAGE;
+        let viewString = ePost <= NUM_POSTS_PER_PAGE ?
+            "Viewing all replies":
+            "Viewing replies " + sPost + "→" + ePost;
 
         return (
             <div className="replies" >
-                <h5>Viewing replies {sPost}→{ePost}</h5>
+                <h5>{viewString}</h5>
                 <h6 onClick={() => this.getReplies()}>Refresh replies</h6>
                 {this.renderRepliesList()}
             </div>
@@ -91,10 +101,10 @@ class Post extends React.Component {
 
     renderRepliesList() {
         return (
-            this.state.replies.map((reply) =>
+            this.state.replies.map((reply) => 
                 <div className="reply" key={reply._id}>
                     <h4><Link to={"/post/" + reply._id} onClick={this.forceUpdate}>{reply.title}</Link></h4>
-                    <h5>By: {reply.user}</h5>
+                    <h5>By: {reply.user} on {postDateFormat(reply.date, reply.edit)}</h5>
                 </div>
             )
         )
@@ -107,7 +117,7 @@ class Post extends React.Component {
                     <h1>{this.state.title}</h1>
                     <p>{this.state.body}</p>
                     <hr />
-                    <h3>By: {this.state.author}</h3>
+                    <h3>By: {this.state.author} on {postDateFormat(this.state.date, this.state.edit)}</h3>
                 </div>
                 <hr />
                 {this.renderReplies()}
