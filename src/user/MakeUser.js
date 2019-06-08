@@ -43,17 +43,23 @@ class MakeUser extends React.Component {
     //render done
     render() {
         return (
-            <form className="Users" onSubmit={this.handleSubmit}>
-                <label>
-                    Username:
-                    <input type="text" name="user" onChange={this.handleUsernameChange} />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="pass" onChange={this.handlePasswordChange} />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
+            
+            <div class="signup">
+                <form className="Users" onSubmit={this.handleSubmit}>
+                    <h1>Register</h1>
+                    <label>
+                        <input type="text" id="" placeholder= "Username "name="user" onChange={this.handleUsernameChange} />
+                    </label>
+                    <br/>
+                    <label>
+                        <input type="password" placeholder="Password" name="pass" onChange={this.handlePasswordChange} />
+                    </label>
+                    <br/>
+                        <input type="submit" value="Submit" />
+                        
+                </form>
+            </div>
+            
         );
      
     }
