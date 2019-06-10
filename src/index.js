@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
-import './index.css';
+import './index.scss';
 import App from './App';
 import Post from "./post/Post";
 import MakePost from "./post/MakePost";

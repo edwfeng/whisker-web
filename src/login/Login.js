@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import './Login.css';
+import './Login.scss';
 import { setCookie, API_BASE_URL } from "../utils.js";
 
 class Login extends React.Component {

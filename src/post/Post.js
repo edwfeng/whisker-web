@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { API_BASE_URL, NUM_POSTS_PER_PAGE, postDateFormat } from "../utils.js";
 import { Link } from "react-router-dom";
-import "./Post.css";
+import "./Post.scss";
 
 class Post extends React.Component {
     constructor() {
