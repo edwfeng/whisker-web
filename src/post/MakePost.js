@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 class MakePost extends React.Component {
     constructor() {
         super();
-        this.state = {title: "", body: "", reply_to: "", redirect: false, id: "", this: this};
+        this.state = {title: "", body: "", reply_to: "", parent_title: "", redirect: false, id: "", this: this};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleBodyChange = this.handleBodyChange.bind(this);
@@ -16,12 +16,25 @@ class MakePost extends React.Component {
         if (this.props.match.params.postId) {
             this.setState({reply_to: this.props.match.params.postId});
         }
+
+        if (this.state.reply_to) {
+            this.getParentName();
+        }
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.id !== prevProps.id && this.props.match.params.postId) {
             this.setState({reply_to: this.props.match.params.postId});
         }
+
+        if (this.state.reply_to) {
+            this.getParentName();
+        }
+    }
+
+    async getParentName() {
+        let parent = await axios.get(API_BASE_URL + "/posts/" + this.state.reply_to);
+        this.setState({parent_title: parent.data.title});
     }
 
     handleSubmit(event) {
@@ -71,10 +84,14 @@ class MakePost extends React.Component {
     }
 
     render() {
+        let viewString = this.state.reply_to ?
+            "Reply to \"" + this.state.parent_title + '"':
+            "New post";
+
         return (
         <div className="container">
             <form onSubmit={this.handleSubmit}>
-                <h1>New Post</h1>
+                <h1>{viewString}</h1>
                 <input type="text" placeholder="Title" name="title" onChange={this.handleTitleChange} />
                 <br />
                 <input type="text" placeholder="Text" name="body" onChange={this.handleBodyChange} />
