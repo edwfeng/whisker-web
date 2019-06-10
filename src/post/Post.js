@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { API_BASE_URL, NUM_POSTS_PER_PAGE, postDateFormat } from "../utils.js";
 import { Link } from "react-router-dom";
-import "./Post.scss";
 
 class Post extends React.Component {
     constructor() {
@@ -156,7 +155,7 @@ class Post extends React.Component {
 
     render() {
         return (
-            <div className="postContainer">
+            <div className="container">
                 <div className="post">
                     <h1>{this.state.title}</h1>
                     <p>{this.state.body}</p>

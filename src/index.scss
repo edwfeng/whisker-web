@@ -20,13 +20,18 @@ code {
 }
 
 .container {
-  width: 65%;
+  width: 60%;
   padding: 2%;
-  margin: 5% auto;
+  margin: auto;
+}
+
+.link {
+  color: $brand;
+  text-decoration: underline;
 }
 
 form {
-  margin: 0 auto;
+  margin: 5% auto;
   padding: 45px;
   text-align: center;
 }
