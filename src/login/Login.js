@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from "axios";
-import './Login.scss';
 import { setCookie, API_BASE_URL } from "../utils.js";
 
 class Login extends React.Component {
@@ -45,18 +44,12 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div class="login">
-                <form className="Login" onSubmit={this.handleSubmit}>
-                    <h1>
-                        Login
-                    </h1>
-                    <label>
-                        <input type="text" placeholder="Username" name="user" onChange={this.handleUsernameChange} />
-                    </label>
+            <div class="container">
+                <form onSubmit={this.handleSubmit}>
+                    <h1>Login</h1>
+                    <input type="text" placeholder="Username" name="user" onChange={this.handleUsernameChange} />
                     <br/>
-                    <label>
-                        <input type="password" placeholder="Password" name="pass" onChange={this.handlePasswordChange} />
-                    </label>
+                    <input type="password" placeholder="Password" name="pass" onChange={this.handlePasswordChange} />
                     <br/>
                     <input type="submit" value="Submit" />
                 </form>

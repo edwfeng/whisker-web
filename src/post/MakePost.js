@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import API_BASE_URL from "../utils.js";
 import { Redirect } from "react-router-dom";
-import "./MakePost.scss";
 
 class MakePost extends React.Component {
     constructor() {
@@ -73,19 +72,17 @@ class MakePost extends React.Component {
 
     render() {
         return (
-            <form className="MakePost" onSubmit={this.handleSubmit}>
-                <label>
-                    Title:
-                    <input type="text" name="title" onChange={this.handleTitleChange} />
-                </label>
+        <div className="container">
+            <form onSubmit={this.handleSubmit}>
+                <h1>New Post</h1>
+                <input type="text" placeholder="Title" name="title" onChange={this.handleTitleChange} />
                 <br />
-                <label>
-                    Text:
-                    <input type="text" name="body" onChange={this.handleBodyChange} />
-                </label>
+                <input type="text" placeholder="Text" name="body" onChange={this.handleBodyChange} />
+                <br/>
                 <input type="submit" value="Submit" />
                 {this.renderRedirect()}
             </form>
+        </div>
         );
     }
 }
