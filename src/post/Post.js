@@ -82,6 +82,18 @@ class Post extends React.Component {
             )
         }
 
+        return (
+            <div className="replies" >
+                {this.renderRepliesHelper()}
+                <hr />
+                {this.renderRepliesList()}
+                <hr />
+                {this.renderRepliesHelper()}
+            </div>
+        )
+    }
+
+    renderRepliesHelper() {
         let sPost = this.state.curPage * NUM_POSTS_PER_PAGE + 1;
         let ePost = (this.state.curPage + 1) * NUM_POSTS_PER_PAGE > this.state.tReplies ?
             this.state.tReplies :
@@ -93,11 +105,10 @@ class Post extends React.Component {
                 "ies " + sPost + "→" + ePost);
 
         return (
-            <div className="replies" >
-                <h5>{viewString}</h5>
+            <div style={{display: "flex", "justify-content": "space-between"}}>
+                <h6 className="link" onClick={() => this.getReplies()}>Refresh replies</h6>
                 <h4 style={{display: "flex"}}>{this.renderReplyPages()}</h4>
-                <h6 className="canClick" onClick={() => this.getReplies()}>Refresh replies</h6>
-                {this.renderRepliesList()}
+                <h5>{viewString}</h5>
             </div>
         )
     }
@@ -106,7 +117,7 @@ class Post extends React.Component {
         return (
             this.state.replies.map((reply) => 
                 <div className="reply" key={reply._id}>
-                    <h4><Link to={"/post/" + reply._id} onClick={this.forceUpdate}>{reply.title}&nbsp;</Link></h4>
+                    <h4><Link to={"/post/" + reply._id} className="link" onClick={this.forceUpdate}>{reply.title}&nbsp;</Link></h4>
                     <h5>By: {reply.user} on {postDateFormat(reply.date, reply.edit)}</h5>
                 </div>
             )
@@ -126,7 +137,7 @@ class Post extends React.Component {
                 }
 
                 return (
-                    <div className="canClick" key={page}
+                    <div className="link" key={page}
                         onClick={() => {
                             console.log(this.state);
                             // eslint-disable-next-line
@@ -149,8 +160,7 @@ class Post extends React.Component {
                 <div className="post">
                     <h1>{this.state.title}</h1>
                     <p>{this.state.body}</p>
-                    <hr />
-                    <h3>By: {this.state.author} on {postDateFormat(this.state.date, this.state.edit)}</h3>
+                    <h4>By: {this.state.author} on {postDateFormat(this.state.date, this.state.edit)}</h4>
                 </div>
                 <hr />
                 {this.renderReplies()}
