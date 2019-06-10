@@ -29,5 +29,33 @@ export function getCookie(cname) {
 //     }
 // }
 
+function dateIsBeforeToday(date) {
+    return new Date(date.toDateString()) < new Date(new Date().toDateString());
+}
+
+export function postDateFormat(postDate, editDate) {
+    let result = "";
+    const date_localization = "en-us";
+    const date_time_options = {
+        hour: "2-digit",
+        minute: "2-digit"
+    }
+
+    result += dateIsBeforeToday(postDate) ?
+        postDate.toLocaleDateString(date_localization) :
+        postDate.toLocaleDateString(date_localization, date_time_options);
+
+    if (postDate.getTime() !== editDate.getTime()) {
+        result += " (last edited ";
+        result += dateIsBeforeToday(editDate) ?
+            editDate.toLocaleDateString(date_localization) :
+            editDate.toLocaleDateString(date_localization, date_time_options);
+        result += ")";
+    }
+    return result;
+}
+
+export const NUM_POSTS_PER_PAGE = 50;
+
 export const API_BASE_URL = "http://localhost:5000";
 export default API_BASE_URL;
