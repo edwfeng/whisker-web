@@ -5,6 +5,7 @@ import './index.scss';
 import App from './App';
 import Post from "./post/Post";
 import MakePost from "./post/MakePost";
+import EditPost from "./post/EditPost";
 import Login from "./login/Login";
 import MakeUser from "./user/MakeUser";
 import * as serviceWorker from './serviceWorker';
@@ -24,6 +25,7 @@ const routing = (
             <Route path="/signup"component={MakeUser}/>
             <Route exact path="/post/:postId" component={Post} />
             <Route path="/post/:postId/reply" component={MakePost} />
+            <Route path="/post/:postId/edit" component={EditPost} />
             <Route path="/newpost" component={MakePost} />
             <Route path="/login" component={Login} />
         </div>
