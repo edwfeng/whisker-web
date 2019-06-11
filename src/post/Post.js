@@ -54,14 +54,12 @@ class Post extends React.Component {
             if (res.data.user_id === getCookie("uid")) {
                 thing.setState({
                     editContent:
-                    <div>
-                        <br />
                         <div style={{display: "flex"}}>
                             <h5><Link to={"/post/" + res.data._id + "/edit"} className="link" onClick={thing.forceUpdate}>Edit post</Link></h5>
                             <h5>|</h5>
                             <h5><Link to={"/post/" + res.data._id + "/delete"} className="link" onClick={thing.forceUpdate}>Delete post</Link></h5>
+                            <h5>|</h5>
                         </div>
-                    </div>
                 })
             }
             thing.getParent();
@@ -209,7 +207,11 @@ class Post extends React.Component {
                     <p>{this.state.body}</p>
                     <h4>By: {this.state.author} on {postDateFormat(this.state.date, this.state.edit)}</h4>
                     {this.state.parentContent}
-                    {this.state.editContent}
+                    <br />
+                    <div style={{display: "flex"}}>
+                        {this.state.editContent}
+                        <h5><Link to={"/post/" + this.state.id + "/reply"} className="link" onClick={this.forceUpdate}>Reply</Link></h5>
+                    </div>
                 </div>
                 <hr />
                 {this.renderReplies()}
