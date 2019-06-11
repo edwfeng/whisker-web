@@ -1,5 +1,9 @@
-export function setCookie(cvalue) {
+export function setJWT(cvalue) {
     document.cookie = "jwt=" + cvalue + ";path=/";
+}
+
+export function setUserID(cvalue) {
+    document.cookie = "uid=" + cvalue + ";path=/";
 }
 
 export function getCookie(cname) {

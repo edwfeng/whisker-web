@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import API_BASE_URL from "../utils.js";
-import { setCookie } from "../utils";
+import { setJWT, setUserID } from "../utils";
 
 class MakeUser extends React.Component {
     constructor() {
@@ -23,7 +23,8 @@ class MakeUser extends React.Component {
             pass: this.state.pass
         })
         .then(function (res) {
-            setCookie(res.data.token);
+            setJWT(res.data.token);
+            setUserID(res.data._id);
         })
         .catch(function (err) {
             alert("Sorry, we experienced an error! Please try again later.");
