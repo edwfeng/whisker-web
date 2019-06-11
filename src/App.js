@@ -1,23 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.png';
+import './App.scss';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Whisker</h1>
+        <p>Whisker is not a revolutionary new social media site, and we are not hoping to change the industry.</p>
+        <p>To get started, create an account, and make a post. Links are in the navbar.</p>
       </header>
     </div>
   );
