@@ -11,6 +11,8 @@ class Post extends React.Component {
             body: "",
             author: "",
             id: "",
+            parent_id: "",
+            parentContent: <div></div>,
             date: new Date(),
             edit: new Date(),
             replies: [],
@@ -41,8 +43,10 @@ class Post extends React.Component {
                 id: res.data._id,
                 author:res.data.user,
                 date: new Date(res.data.created_at),
-                edit: new Date(res.data.updated_at)
+                edit: new Date(res.data.updated_at),
+                parent_id: res.data.parent_id
             });
+            thing.getParent();
             thing.getReplies();
         })
         .catch(function (err) {
@@ -153,6 +157,31 @@ class Post extends React.Component {
         )
     }
 
+    getParent() {
+        console.log(this.state);
+        if (!this.state.parent_id) {
+            return (<div></div>);
+        }
+
+        let thing = this;
+
+        axios.get(API_BASE_URL + "/posts/" + this.state.parent_id)
+        .then(function (res) {
+            if (!res.data.title) {
+                return (<div></div>)
+            }
+
+            thing.setState({
+                parentContent:
+                <h5><Link to={"/post/" + res.data._id} className="link" onClick={thing.forceUpdate}>View parent: "{res.data.title}"</Link></h5>
+            })
+        })
+        .catch(function (err) {
+            alert("We experienced an error.");
+            console.log(err);
+        })
+    }
+
     render() {
         return (
             <div className="container">
@@ -160,11 +189,11 @@ class Post extends React.Component {
                     <h1>{this.state.title}</h1>
                     <p>{this.state.body}</p>
                     <h4>By: {this.state.author} on {postDateFormat(this.state.date, this.state.edit)}</h4>
+                    {this.state.parentContent}
                 </div>
                 <hr />
                 {this.renderReplies()}
             </div>
-            
         );
     }
 }
