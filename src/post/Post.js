@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { API_BASE_URL, NUM_POSTS_PER_PAGE, postDateFormat } from "../utils.js";
+import { API_BASE_URL, NUM_POSTS_PER_PAGE, postDateFormat, getCookie } from "../utils.js";
 import { Link } from "react-router-dom";
 
 class Post extends React.Component {
@@ -13,6 +13,7 @@ class Post extends React.Component {
             id: "",
             parent_id: "",
             parentContent: <div></div>,
+            editContent: <div></div>,
             date: new Date(),
             edit: new Date(),
             replies: [],
@@ -41,13 +42,31 @@ class Post extends React.Component {
                 title: res.data.title,
                 body: res.data.text,
                 id: res.data._id,
-                author:res.data.user,
+                author: res.data.user,
                 date: new Date(res.data.created_at),
                 edit: new Date(res.data.updated_at),
                 parent_id: res.data.parent_id
             });
+
+            console.log(res.data.user_id);
+            console.log(getCookie("uid"));
+
+            if (res.data.user_id === getCookie("uid")) {
+                thing.setState({
+                    editContent:
+                    <div>
+                        <br />
+                        <div style={{display: "flex"}}>
+                            <h5><Link to={"/post/" + res.data._id + "/edit"} className="link" onClick={thing.forceUpdate}>Edit post</Link></h5>
+                            <h5>|</h5>
+                            <h5><Link to={"/post/" + res.data._id + "/delete"} className="link" onClick={thing.forceUpdate}>Delete post</Link></h5>
+                        </div>
+                    </div>
+                })
+            }
             thing.getParent();
             thing.getReplies();
+            thing.forceUpdate();
         })
         .catch(function (err) {
             alert("Sorry, we experienced an error fetching post data! Please try again later.");
@@ -108,7 +127,7 @@ class Post extends React.Component {
                 "ies " + sPost + "→" + ePost);
 
         return (
-            <div style={{display: "flex", "justify-content": "space-between"}}>
+            <div style={{display: "flex", justifyContent: "space-between"}}>
                 <h6 className="link" onClick={() => this.getReplies()}>Refresh replies</h6>
                 <h4 style={{display: "flex"}}>{this.renderReplyPages()}</h4>
                 <h5>{viewString}</h5>
@@ -190,6 +209,7 @@ class Post extends React.Component {
                     <p>{this.state.body}</p>
                     <h4>By: {this.state.author} on {postDateFormat(this.state.date, this.state.edit)}</h4>
                     {this.state.parentContent}
+                    {this.state.editContent}
                 </div>
                 <hr />
                 {this.renderReplies()}
