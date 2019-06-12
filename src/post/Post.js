@@ -95,7 +95,10 @@ class Post extends React.Component {
     renderReplies() {
         if (!this.state.replies.length) {
             return (
-                <h4>There are no replies to this post.</h4>
+                <div className="replies" style={{display: "flex", justifyContent: "space-between"}}>
+                    <h4>There are no replies to this post.</h4>
+                    <h6 className="link" onClick={() => this.getReplies()}>Refresh replies</h6>
+                </div>
             )
         }
 
@@ -116,7 +119,7 @@ class Post extends React.Component {
             this.state.tReplies :
             (this.state.curPage + 1) * NUM_POSTS_PER_PAGE;
         let viewString = this.state.tPages === 1 ?
-            "Viewing all replies":
+            "Viewing all " + this.state.tReplies + " replies":
             "Viewing repl" + ((sPost === ePost ?
                 "y " + sPost :
                 "ies " + sPost + "→" + ePost) + " of " + this.state.tReplies);
