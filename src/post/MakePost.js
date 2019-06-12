@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import API_BASE_URL from "../utils.js";
+import { API_BASE_URL, getCookie } from "../utils.js";
 import { Redirect } from "react-router-dom";
 
 class MakePost extends React.Component {
@@ -54,8 +54,7 @@ class MakePost extends React.Component {
             text: this.state.body
         }, {
             headers: {
-                "x-auth-token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjZWRiZDk1ZjMwNjY4Njk5YzcyZTk4MiIsImlhdCI6MTU1OTgyOTk0NiwiZXhwIjoxNTU5ODM3MTQ2fQ.0l9-iX_gBnhDOwhYnVRMtJ0lbGuoyRO1OqMkTEFAd2U",
-                //TODO: Get JWT from cookie.
+                "x-auth-token": "Bearer " + getCookie("jwt")
             }
         })
         .then(function (res) {
