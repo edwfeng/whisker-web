@@ -1,20 +1,31 @@
-export function setCookie(cvalue) {
+import { decode } from "jsonwebtoken";
+
+export function setJWT(cvalue) {
     document.cookie = "jwt=" + cvalue + ";path=/";
 }
-
 export function getCookie(cname) {
     var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            return true;
-        }
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
     }
     return "";
+}
+
+export function getUserId() {
+    var jwt = getCookie("jwt");
+    var decoded = decode(jwt);
+    if (decoded === null) {
+        return "";
+    }
+    return decoded.id;
 }
 
 // export function checkCookie() {

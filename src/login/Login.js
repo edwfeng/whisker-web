@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import { setCookie, API_BASE_URL } from "../utils.js";
+import { setJWT, API_BASE_URL } from "../utils.js";
 
 class Login extends React.Component {
     constructor() {
@@ -22,7 +22,7 @@ class Login extends React.Component {
             pass: this.state.pass
         })
             .then(function (res) {
-                setCookie(res.data.token);
+                setJWT(res.data.token);
                 console.log(res);
             })
             .catch(function (err) {

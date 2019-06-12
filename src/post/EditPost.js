@@ -1,12 +1,12 @@
 import React from "react";
 import axios from "axios";
-import API_BASE_URL from "../utils.js";
+import { API_BASE_URL, getCookie } from "../utils.js";
 import { Redirect } from "react-router-dom";
 
-class MakePost extends React.Component {
+class EditPost extends React.Component {
     constructor() {
         super();
-        this.state = {title: "", body: "", reply_to: "", parent_title: "", redirect: false, id: ""};
+        this.state = {title: "", body: "", redirect: false, id: "", gotData: false};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleBodyChange = this.handleBodyChange.bind(this);
@@ -14,27 +14,36 @@ class MakePost extends React.Component {
 
     componentDidMount() {
         if (this.props.match.params.postId) {
-            this.setState({reply_to: this.props.match.params.postId});
-        }
-
-        if (this.state.reply_to) {
-            this.getParentName();
+            this.setState({id: this.props.match.params.postId});
+            this.getPostData();
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.id !== prevProps.id && this.props.match.params.postId) {
-            this.setState({reply_to: this.props.match.params.postId});
+        if (this.props.id !== prevProps.id) {
+            if (this.props.match.params.postId) {
+                this.setState({id: this.props.match.params.postId});
+            }
+            this.getPostData();
         }
 
-        if (this.state.reply_to) {
-            this.getParentName();
+        if (!this.state.gotData) {
+            this.getPostData();
         }
     }
 
-    async getParentName() {
-        let parent = await axios.get(API_BASE_URL + "/posts/" + this.state.reply_to);
-        this.setState({parent_title: parent.data.title});
+    getPostData() {
+        let thing = this;
+        if (this.state.id !== "") {
+            axios.get(API_BASE_URL + "/posts/" + this.state.id)
+            .then(function (res) {
+                thing.setState({
+                    title: res.data.title,
+                    body: res.data.text,
+                    gotData: true
+                })
+            });
+        }
     }
 
     handleSubmit(event) {
@@ -44,22 +53,18 @@ class MakePost extends React.Component {
         }
         let thing = this;
 
-        let apiURL = API_BASE_URL + "/posts";
-        if (this.state.reply_to) {
-            apiURL +="/" + this.state.reply_to;
-        }
+        let jwt = "Bearer " + getCookie("jwt");
 
-        axios.post(apiURL, {
+        axios.patch(API_BASE_URL + "/posts/" + this.state.id, {
             title: this.state.title,
             text: this.state.body
         }, {
             headers: {
-                "x-auth-token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjZWRiZDk1ZjMwNjY4Njk5YzcyZTk4MiIsImlhdCI6MTU1OTgyOTk0NiwiZXhwIjoxNTU5ODM3MTQ2fQ.0l9-iX_gBnhDOwhYnVRMtJ0lbGuoyRO1OqMkTEFAd2U",
-                //TODO: Get JWT from cookie.
+                "Authorization": jwt
             }
         })
-        .then(function (res) {
-            thing.setState({redirect: true, id: res.data.id});
+        .then(function () {
+            thing.setState({redirect: true});
         })
         .catch(function (err) {
             alert("Sorry, we experienced an error! Please try again later.");
@@ -84,17 +89,21 @@ class MakePost extends React.Component {
     }
 
     render() {
-        let viewString = this.state.reply_to ?
-            "Reply to \"" + this.state.parent_title + '"':
-            "New post";
-
         return (
         <div className="container">
             <form onSubmit={this.handleSubmit}>
-                <h1>{viewString}</h1>
-                <input type="text" placeholder="Title" name="title" onChange={this.handleTitleChange} />
+                <h1>Edit post</h1>
+                <input type="text"
+                    placeholder="Title"
+                    name="title"
+                    onChange={this.handleTitleChange}
+                    value={this.state.title} />
                 <br />
-                <input type="text" placeholder="Text" name="body" onChange={this.handleBodyChange} />
+                <input type="text"
+                    placeholder="Text"
+                    name="body"
+                    onChange={this.handleBodyChange}
+                    value={this.state.body} />
                 <br/>
                 <input type="submit" value="Submit" />
                 {this.renderRedirect()}
@@ -104,4 +113,4 @@ class MakePost extends React.Component {
     }
 }
 
-export default MakePost;
+export default EditPost;

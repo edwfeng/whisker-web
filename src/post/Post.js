@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { API_BASE_URL, NUM_POSTS_PER_PAGE, postDateFormat } from "../utils.js";
+import { API_BASE_URL, NUM_POSTS_PER_PAGE, postDateFormat, getUserId } from "../utils.js";
 import { Link } from "react-router-dom";
 
 class Post extends React.Component {
@@ -11,6 +11,9 @@ class Post extends React.Component {
             body: "",
             author: "",
             id: "",
+            parent_id: "",
+            parentContent: <div></div>,
+            editContent: <div></div>,
             date: new Date(),
             edit: new Date(),
             replies: [],
@@ -39,11 +42,26 @@ class Post extends React.Component {
                 title: res.data.title,
                 body: res.data.text,
                 id: res.data._id,
-                author:res.data.user,
+                author: res.data.user,
                 date: new Date(res.data.created_at),
-                edit: new Date(res.data.updated_at)
+                edit: new Date(res.data.updated_at),
+                parent_id: res.data.parent_id
             });
+
+            if (res.data.user_id === getUserId()) {
+                thing.setState({
+                    editContent:
+                        <div style={{display: "flex"}}>
+                            <h5><Link to={"/post/" + res.data._id + "/edit"} className="link" onClick={thing.forceUpdate}>Edit post</Link></h5>
+                            <h5>|</h5>
+                            <h5><Link to={"/post/" + res.data._id + "/delete"} className="link" onClick={thing.forceUpdate}>Delete post</Link></h5>
+                            <h5>|</h5>
+                        </div>
+                })
+            }
+            thing.getParent();
             thing.getReplies();
+            thing.forceUpdate();
         })
         .catch(function (err) {
             alert("Sorry, we experienced an error fetching post data! Please try again later.");
@@ -104,7 +122,7 @@ class Post extends React.Component {
                 "ies " + sPost + "→" + ePost);
 
         return (
-            <div style={{display: "flex", "justify-content": "space-between"}}>
+            <div style={{display: "flex", justifyContent: "space-between"}}>
                 <h6 className="link" onClick={() => this.getReplies()}>Refresh replies</h6>
                 <h4 style={{display: "flex"}}>{this.renderReplyPages()}</h4>
                 <h5>{viewString}</h5>
@@ -153,6 +171,31 @@ class Post extends React.Component {
         )
     }
 
+    getParent() {
+        console.log(this.state);
+        if (!this.state.parent_id) {
+            return (<div></div>);
+        }
+
+        let thing = this;
+
+        axios.get(API_BASE_URL + "/posts/" + this.state.parent_id)
+        .then(function (res) {
+            if (!res.data.title) {
+                return (<div></div>)
+            }
+
+            thing.setState({
+                parentContent:
+                <h5><Link to={"/post/" + res.data._id} className="link" onClick={thing.forceUpdate}>View parent: "{res.data.title}"</Link></h5>
+            })
+        })
+        .catch(function (err) {
+            alert("We experienced an error.");
+            console.log(err);
+        })
+    }
+
     render() {
         return (
             <div className="container">
@@ -160,11 +203,16 @@ class Post extends React.Component {
                     <h1>{this.state.title}</h1>
                     <p>{this.state.body}</p>
                     <h4>By: {this.state.author} on {postDateFormat(this.state.date, this.state.edit)}</h4>
+                    {this.state.parentContent}
+                    <br />
+                    <div style={{display: "flex"}}>
+                        {this.state.editContent}
+                        <h5><Link to={"/post/" + this.state.id + "/reply"} className="link" onClick={this.forceUpdate}>Reply</Link></h5>
+                    </div>
                 </div>
                 <hr />
                 {this.renderReplies()}
             </div>
-            
         );
     }
 }
