@@ -40,12 +40,10 @@ class Login extends React.Component {
 
     handleUsernameChange(event) {
         this.setState({user: event.target.value.toString()})
-        console.log(this.state)
     }
 
     handlePasswordChange(event) {
         this.setState({pass: event.target.value.toString()})
-        console.log(this.state)
     }
 
     render() {

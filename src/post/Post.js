@@ -171,12 +171,9 @@ class Post extends React.Component {
                 return (
                     <div className="link" key={page}
                         onClick={() => {
-                            console.log(this.state);
                             // eslint-disable-next-line
                             this.state.curPage = page;
                             // I tried this.setState() but it didn't work, so...
-                            console.log(this.state);
-                            console.log(page+1)
                             this.getReplies();
                         }} >
                         {page + 1}&nbsp;
@@ -187,7 +184,6 @@ class Post extends React.Component {
     }
 
     getParent() {
-        console.log(this.state);
         if (!this.state.parent_id) {
             return (<div></div>);
         }

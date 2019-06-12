@@ -28,7 +28,6 @@ class EditUser extends React.Component {
 
     getUserData() {
         let thing = this;
-        console.log(API_BASE_URL + "/userid/" + getUserId())
         axios.get(API_BASE_URL + "/userid/" + getUserId())
         .then(function (res) {
             thing.setState({
@@ -99,7 +98,6 @@ class EditUser extends React.Component {
     }
     
     render() {
-        console.log(this.state)
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit}>

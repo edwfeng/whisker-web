@@ -68,8 +68,6 @@ class DeletePost extends React.Component {
 
         let jwt = "Bearer " + getCookie("jwt");
 
-        console.log(API_BASE_URL + "/posts/" + this.state.id)
-
         axios.delete(API_BASE_URL + "/posts/" + this.state.id, {
             headers: {
                 "Authorization": jwt
@@ -100,9 +98,7 @@ class DeletePost extends React.Component {
     }
 
     goBack() {
-        console.log(this.state)
         this.setState({redirectTo: "/post/" + this.state.id})
-        console.log(this.state)
     }
 
     renderRedirect() {
