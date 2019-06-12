@@ -3,6 +3,13 @@ import { decode } from "jsonwebtoken";
 export function setJWT(cvalue) {
     document.cookie = "jwt=" + cvalue + ";path=/";
 }
+
+export function delJWT() {
+    var date = new Date();
+    date.setDate(date.getDate() - 1);
+    document.cookie = "jwt=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+}
+
 export function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);

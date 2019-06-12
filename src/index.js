@@ -8,6 +8,7 @@ import MakePost from "./post/MakePost";
 import EditPost from "./post/EditPost";
 import DeletePost from "./post/DeletePost";
 import Login from "./login/Login";
+import Logout from "./login/Logout";
 import MakeUser from "./user/MakeUser";
 import * as serviceWorker from './serviceWorker';
 import logo from './logo.png';
@@ -24,6 +25,8 @@ if (getCookie("jwt") === "") {
 } else {
     login = <li style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <Link to="/newpost">New Post</Link>
+                <p>|</p>
+                <Link to="/logout">Logout</Link>
             </li>
 }
 
@@ -45,6 +48,7 @@ const routing = (
             <Route path="/post/:postId/delete" component={DeletePost} />
             <Route path="/newpost" component={MakePost} />
             <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
         </div>
     </Router>
 )
