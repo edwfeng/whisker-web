@@ -27,6 +27,8 @@ if (getCookie("jwt") === "") {
     login = <li style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <Link to="/newpost">New Post</Link>
                 <p>|</p>
+                <Link to="/settings">Settings</Link>
+                <p>|</p>
                 <Link to="/logout">Logout</Link>
             </li>
 }
