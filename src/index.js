@@ -10,6 +10,7 @@ import DeletePost from "./post/DeletePost";
 import Login from "./login/Login";
 import Logout from "./login/Logout";
 import MakeUser from "./user/MakeUser";
+import EditUser from "./user/EditUser";
 import * as serviceWorker from './serviceWorker';
 import logo from './logo.png';
 
@@ -42,6 +43,7 @@ const routing = (
             </ul>
             <Route exact path="/" component={App} />
             <Route path="/signup"component={MakeUser}/>
+            <Route path="/settings"component={EditUser}/>
             <Route exact path="/post/:postId" component={Post} />
             <Route path="/post/:postId/reply" component={MakePost} />
             <Route path="/post/:postId/edit" component={EditPost} />
