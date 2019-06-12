@@ -1,12 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { API_BASE_URL, getCookie } from "../utils.js";
-import { Redirect } from "react-router-dom";
 
 class EditPost extends React.Component {
     constructor() {
         super();
-        this.state = {title: "", body: "", redirect: false, id: "", gotData: false};
+        this.state = {title: "", body: "", id: "", gotData: false};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleBodyChange = this.handleBodyChange.bind(this);
@@ -74,7 +73,7 @@ class EditPost extends React.Component {
             }
         })
         .then(function () {
-            thing.setState({redirect: true});
+            thing.props.history.push("/post/" + thing.state.id);
         })
         .catch(function (err) {
             console.log(err);
@@ -106,13 +105,6 @@ class EditPost extends React.Component {
         this.setState({body: event.target.value.toString()});
     }
 
-    renderRedirect() {
-        if (this.state.redirect) {
-            let post = "/post/" + this.state.id;
-            return <Redirect to={post} />
-        }
-    }
-
     render() {
         return (
         <div className="container">
@@ -131,7 +123,6 @@ class EditPost extends React.Component {
                     value={this.state.body} />
                 <br/>
                 <input type="submit" value="Submit" />
-                {this.renderRedirect()}
             </form>
         </div>
         );

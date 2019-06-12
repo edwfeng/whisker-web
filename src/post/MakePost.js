@@ -1,12 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { API_BASE_URL, getCookie } from "../utils.js";
-import { Redirect } from "react-router-dom";
 
 class MakePost extends React.Component {
     constructor() {
         super();
-        this.state = {title: "", body: "", reply_to: "", parent_title: "", redirect: false, id: ""};
+        this.state = {title: "", body: "", reply_to: "", parent_title: "", id: ""};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleBodyChange = this.handleBodyChange.bind(this);
@@ -69,7 +68,7 @@ class MakePost extends React.Component {
             }
         })
         .then(function (res) {
-            thing.setState({redirect: true, id: res.data.id});
+            thing.props.history.push("/post/" + res.data.id);
         })
         .catch(function (err) {
             console.log(err);
@@ -101,13 +100,6 @@ class MakePost extends React.Component {
         this.setState({body: event.target.value.toString()});
     }
 
-    renderRedirect() {
-        if (this.state.redirect) {
-            let post = "/post/" + this.state.id;
-            return <Redirect to={post} />
-        }
-    }
-
     render() {
         let viewString = this.state.reply_to ?
             "Reply to \"" + this.state.parent_title + '"':
@@ -122,7 +114,6 @@ class MakePost extends React.Component {
                 <input type="text" placeholder="Text" name="body" onChange={this.handleBodyChange} />
                 <br/>
                 <input type="submit" value="Submit" />
-                {this.renderRedirect()}
             </form>
         </div>
         );

@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { API_BASE_URL, getCookie, postDateFormat } from "../utils.js";
-import { Redirect } from "react-router-dom";
 import "./DeletePost.scss";
 
 class DeletePost extends React.Component {
@@ -12,7 +11,6 @@ class DeletePost extends React.Component {
             body: "",
             date: new Date(),
             edit: new Date(),
-            redirectTo: "",
             id: "",
             gotData: false};
     }
@@ -74,7 +72,8 @@ class DeletePost extends React.Component {
             }
         })
         .then(function () {
-            thing.setState({redirectTo: "/"});
+            alert("Post deleted.");
+            thing.props.history.push("/");
         })
         .catch(function (err) {
             console.log(err);
@@ -98,13 +97,7 @@ class DeletePost extends React.Component {
     }
 
     goBack() {
-        this.setState({redirectTo: "/post/" + this.state.id})
-    }
-
-    renderRedirect() {
-        if (this.state.redirectTo !== "") {
-            return <Redirect to={this.state.redirectTo} />
-        }
+        this.props.history.goBack();
     }
 
     render() {
@@ -121,7 +114,6 @@ class DeletePost extends React.Component {
                 </div>
                 <input type="button" value="Yes" id="delConfirm" onClick={() => this.handleSubmit()} />
                 <input type="button" value="No" onClick={() => this.goBack()} />
-                {this.renderRedirect()}
             </form>
         </div>
         );

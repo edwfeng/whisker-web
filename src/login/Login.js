@@ -16,14 +16,16 @@ class Login extends React.Component {
             alert("Please type in your username and password.");
             return 1;
         }
+        let thing = this;
 
         axios.post(API_BASE_URL + "/login", {
             user: this.state.user,
             pass: this.state.pass
         })
         .then(function (res) {
-            setJWT(res.data.token);    
-            alert("Login successful");
+            setJWT(res.data.token);
+            alert("Login successfull");
+            thing.props.history.goBack();
         })
         .catch(function (err) {
             console.log(err);
