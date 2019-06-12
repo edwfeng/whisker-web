@@ -35,10 +35,21 @@ class EditUser extends React.Component {
                 user: res.data.user,
                 gotData: true
             })
+        })
+        .catch(function (err) {
+            console.log(err);
+            if (err.response) {
+                alert(err.response.data.error);
+            } else if (err.request) {
+                alert("Couldn't connect to server.");
+            } else {
+                alert("Generic error, check console for details.");
+            }
         });
     }
 
     handleSubmit(event) {
+        let thing = this;
         let params = {}
         if (this.state.user !== "") {
             params.user = this.state.user;
@@ -58,9 +69,24 @@ class EditUser extends React.Component {
             alert("Success!");
         })
         .catch(function (err) {
-            alert("Sorry, we experienced an error! Please try again later.");
             console.log(err);
-        })
+            if (err.response) {
+                switch (err.response.data.error) {
+                    case "Invalid authorization header.":
+                    case "Token not provided":
+                    case "Invalid token.":
+                        alert("Invalid local credentials, please sign in again.");
+                        thing.props.history.push("/login");
+                        break;
+                    default:
+                        alert(err.response.data.error);
+                }
+            } else if (err.request) {
+                alert("Couldn't connect to server.");
+            } else {
+                alert("Generic error, check console for details.");
+            }
+        });
         event.preventDefault();
     }
 

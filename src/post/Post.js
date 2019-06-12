@@ -64,9 +64,15 @@ class Post extends React.Component {
             thing.forceUpdate();
         })
         .catch(function (err) {
-            alert("Sorry, we experienced an error fetching post data! Please try again later.");
             console.log(err);
-        })
+            if (err.response) {
+                alert(err.response.data.error);
+            } else if (err.request) {
+                alert("Couldn't connect to server.");
+            } else {
+                alert("Generic error, check console for details.");
+            }
+        });
     }
 
     async getReplies() {
@@ -87,8 +93,14 @@ class Post extends React.Component {
             this.setState({replies: posts, tReplies: tReplies, tPages: tPages});
             this.forceUpdate();
         } catch (err) {
-            alert("Something did something bad!");
             console.log(err);
+            if (err.response) {
+                alert(err.response.data.error);
+            } else if (err.request) {
+                alert("Couldn't connect to server.");
+            } else {
+                alert("Generic error, check console for details.");
+            }
         }
     }
 
@@ -194,9 +206,15 @@ class Post extends React.Component {
             })
         })
         .catch(function (err) {
-            alert("We experienced an error.");
             console.log(err);
-        })
+            if (err.response) {
+                alert(err.response.data.error);
+            } else if (err.request) {
+                alert("Couldn't connect to server.");
+            } else {
+                alert("Generic error, check console for details.");
+            }
+        });
     }
 
     render() {

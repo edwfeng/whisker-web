@@ -26,8 +26,14 @@ class Login extends React.Component {
             alert("Login successful");
         })
         .catch(function (err) {
-            alert("Sorry, we experienced an error! Please try again later.");
             console.log(err);
+            if (err.response) {
+                alert(err.response.data.error);
+            } else if (err.request) {
+                alert("Couldn't connect to server.");
+            } else {
+                alert("Generic error, check console for details.");
+            }
         });
         event.preventDefault();
     }
