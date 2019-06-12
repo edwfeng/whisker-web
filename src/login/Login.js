@@ -21,14 +21,14 @@ class Login extends React.Component {
             user: this.state.user,
             pass: this.state.pass
         })
-            .then(function (res) {
-                setJWT(res.data.token);
-                console.log(res);
-            })
-            .catch(function (err) {
-                alert("Sorry, we experienced an error! Please try again later.");
-                console.log(err);
-            });
+        .then(function (res) {
+            setJWT(res.data.token);    
+            alert("Login successful");
+        })
+        .catch(function (err) {
+            alert("Sorry, we experienced an error! Please try again later.");
+            console.log(err);
+        });
         event.preventDefault();
     }
 
