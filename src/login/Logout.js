@@ -11,7 +11,8 @@ class Logout extends React.Component {
     handleSubmit() {
         delJWT();
         alert("Logged out!");
-        this.props.history.push("/")
+        this.props.history.push("/");
+        window.location.reload();
     }
 
     goBack() {

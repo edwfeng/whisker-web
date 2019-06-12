@@ -24,8 +24,9 @@ class Login extends React.Component {
         })
         .then(function (res) {
             setJWT(res.data.token);
-            alert("Login successfull");
+            alert("Login successful");
             thing.props.history.goBack();
+            window.location.reload();
         })
         .catch(function (err) {
             console.log(err);

@@ -17,6 +17,8 @@ class MakeUser extends React.Component {
             alert("You need a password and username.");
             return 1;
         }
+
+        let thing = this;
     
         axios.post(API_BASE_URL + "/users", {
             user: this.state.user,
@@ -24,6 +26,9 @@ class MakeUser extends React.Component {
         })
         .then(function (res) {
             setJWT(res.data.token);
+            alert("Created new user " + thing.state.user);
+            thing.props.history.goBack();
+            window.location.reload();
         })
         .catch(function (err) {
             console.log(err);
