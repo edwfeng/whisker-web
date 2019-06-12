@@ -117,9 +117,9 @@ class Post extends React.Component {
             (this.state.curPage + 1) * NUM_POSTS_PER_PAGE;
         let viewString = this.state.tPages === 1 ?
             "Viewing all replies":
-            "Viewing repl" + (sPost === ePost ?
+            "Viewing repl" + ((sPost === ePost ?
                 "y " + sPost :
-                "ies " + sPost + "→" + ePost);
+                "ies " + sPost + "→" + ePost) + " of " + this.state.tReplies);
 
         return (
             <div style={{display: "flex", justifyContent: "space-between"}}>
