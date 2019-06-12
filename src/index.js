@@ -10,17 +10,31 @@ import DeletePost from "./post/DeletePost";
 import Login from "./login/Login";
 import MakeUser from "./user/MakeUser";
 import * as serviceWorker from './serviceWorker';
+import logo from './logo.png';
+
+import { getCookie } from "./utils.js";
+
+let login = <div></div>
+let post = <div></div>
+if (getCookie("jwt") === "") {
+    login = <li style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <Link to="/login">Login</Link>
+                <p>|</p>
+                <Link to="/signup">Register</Link>
+            </li>
+} else {
+    post = <li><Link to="/newpost">New Post</Link></li>
+}
 
 const routing = (
     <Router>
         <div>
-            <ul>
-                <li>
+            <ul style={{display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+                <li style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                    <img src={logo} alt="logo" style={{width: 50}} />
                     <Link to="/">Home</Link>
                 </li>
-                <li>
-                    <Link to="/newpost">Post</Link>
-                </li>
+                {post}{login}
             </ul>
             <Route exact path="/" component={App} />
             <Route path="/signup"component={MakeUser}/>
