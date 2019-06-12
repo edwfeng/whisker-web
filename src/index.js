@@ -15,7 +15,6 @@ import logo from './logo.png';
 import { getCookie } from "./utils.js";
 
 let login = <div></div>
-let post = <div></div>
 if (getCookie("jwt") === "") {
     login = <li style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <Link to="/login">Login</Link>
@@ -23,7 +22,9 @@ if (getCookie("jwt") === "") {
                 <Link to="/signup">Register</Link>
             </li>
 } else {
-    post = <li><Link to="/newpost">New Post</Link></li>
+    login = <li style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <Link to="/newpost">New Post</Link>
+            </li>
 }
 
 const routing = (
@@ -34,7 +35,7 @@ const routing = (
                     <img src={logo} alt="logo" style={{width: 50}} />
                     <Link to="/">Home</Link>
                 </li>
-                {post}{login}
+                {login}
             </ul>
             <Route exact path="/" component={App} />
             <Route path="/signup"component={MakeUser}/>
