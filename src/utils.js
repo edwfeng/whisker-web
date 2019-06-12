@@ -22,6 +22,9 @@ export function getCookie(cname) {
 export function getUserId() {
     var jwt = getCookie("jwt");
     var decoded = decode(jwt);
+    if (decoded === null) {
+        return "";
+    }
     return decoded.id;
 }
 
