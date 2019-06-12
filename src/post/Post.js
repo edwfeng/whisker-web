@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { API_BASE_URL, NUM_POSTS_PER_PAGE, postDateFormat, getCookie } from "../utils.js";
+import { API_BASE_URL, NUM_POSTS_PER_PAGE, postDateFormat, getUserId } from "../utils.js";
 import { Link } from "react-router-dom";
 
 class Post extends React.Component {
@@ -48,10 +48,7 @@ class Post extends React.Component {
                 parent_id: res.data.parent_id
             });
 
-            console.log(res.data.user_id);
-            console.log(getCookie("uid"));
-
-            if (res.data.user_id === getCookie("uid")) {
+            if (res.data.user_id === getUserId()) {
                 thing.setState({
                     editContent:
                         <div style={{display: "flex"}}>

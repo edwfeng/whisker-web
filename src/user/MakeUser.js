@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import API_BASE_URL from "../utils.js";
-import { setJWT, setUserID } from "../utils";
+import { setJWT } from "../utils";
 
 class MakeUser extends React.Component {
     constructor() {
@@ -24,7 +24,6 @@ class MakeUser extends React.Component {
         })
         .then(function (res) {
             setJWT(res.data.token);
-            setUserID(res.data._id);
         })
         .catch(function (err) {
             alert("Sorry, we experienced an error! Please try again later.");

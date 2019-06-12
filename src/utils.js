@@ -1,11 +1,8 @@
+import { decode } from "jsonwebtoken";
+
 export function setJWT(cvalue) {
     document.cookie = "jwt=" + cvalue + ";path=/";
 }
-
-export function setUserID(cvalue) {
-    document.cookie = "uid=" + cvalue + ";path=/";
-}
-
 export function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -20,7 +17,13 @@ export function getCookie(cname) {
       }
     }
     return "";
-  }
+}
+
+export function getUserId() {
+    var jwt = getCookie("jwt");
+    var decoded = decode(jwt);
+    return decoded.id;
+}
 
 // export function checkCookie() {
 //     var user = getCookie("username");

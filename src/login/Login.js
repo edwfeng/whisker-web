@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import { setJWT, API_BASE_URL, setUserID } from "../utils.js";
+import { setJWT, API_BASE_URL } from "../utils.js";
 
 class Login extends React.Component {
     constructor() {
@@ -23,7 +23,6 @@ class Login extends React.Component {
         })
             .then(function (res) {
                 setJWT(res.data.token);
-                setUserID(res.data._id);
                 console.log(res);
             })
             .catch(function (err) {
