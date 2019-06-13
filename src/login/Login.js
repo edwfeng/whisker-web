@@ -23,7 +23,7 @@ class Login extends React.Component {
         .then(function (res) {
             setJWT(res.data.token);
             alert("Login successful");
-            thing.props.history.push("/user/" + res.data._id);
+            thing.props.history.push("/useri/" + res.data._id);
             window.location.reload();
         })
         .catch(function (err) {

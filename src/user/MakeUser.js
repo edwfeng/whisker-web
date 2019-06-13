@@ -31,7 +31,7 @@ class MakeUser extends React.Component {
         .then(function (res) {
             setJWT(res.data.token);
             alert("Created new user " + thing.state.user);
-            thing.props.history.push("/user/" + res.data._id);
+            thing.props.history.push("/useri/" + res.data._id);
             window.location.reload();
         })
         .catch(function (err) {

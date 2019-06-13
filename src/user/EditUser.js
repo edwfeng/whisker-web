@@ -61,7 +61,7 @@ class EditUser extends React.Component {
             params.bio = this.state.bio;
         }
 
-        axios.patch(API_BASE_URL + "/users" + getUserId(), params, {
+        axios.patch(API_BASE_URL + "/users", params, {
             headers: {
                 "Authorization":" Bearer " + getCookie("jwt")
             }
@@ -69,7 +69,7 @@ class EditUser extends React.Component {
         .then(function (res) {
             setJWT(res.data.token);
             alert("Success!");
-            thing.props.history.push("/user/" + res.data._id);
+            thing.props.history.push("/useri/" + res.data._id);
         })
         .catch(function (err) {
             console.log(err);

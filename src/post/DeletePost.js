@@ -72,7 +72,7 @@ class DeletePost extends React.Component {
         })
         .then(function () {
             alert("Post deleted.");
-            thing.props.history.push("/user/" + getUserId());
+            thing.props.history.push("/useri/" + getUserId());
         })
         .catch(function (err) {
             console.log(err);
