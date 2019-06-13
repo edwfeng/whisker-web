@@ -6,7 +6,7 @@ import { setJWT } from "../utils";
 class EditUser extends React.Component {
     constructor() {
         super();
-        this.state = {user: "", pass: "", gotData: false};
+        this.state = {user: "", pass: "", bio: "", gotData: false};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -32,6 +32,7 @@ class EditUser extends React.Component {
         .then(function (res) {
             thing.setState({
                 user: res.data.user,
+                bio: res.data.bio,
                 gotData: true
             })
         })
@@ -56,6 +57,10 @@ class EditUser extends React.Component {
 
         if (this.state.pass !== "") {
             params.pass = this.state.pass;
+        }
+
+        if (this.state.bio !== "") {
+            params.bio = this.state.bio;
         }
 
         axios.patch(API_BASE_URL + "/users" + getUserId(), params, {
@@ -111,6 +116,11 @@ class EditUser extends React.Component {
                     <br />
                     <input type="password" placeholder="Password" name="pass" onChange={this.handlePasswordChange} />
                     <br/>
+                    <textarea
+                        placeholder="Bio"
+                        name="bio"
+                        onChange={(event) => this.setState({bio: event.target.value})}
+                        value={this.state.bio} />
                     <input type="submit" value="Submit" />
                     <input type="button" value="Cancel" className="bDanger" onClick={this.props.history.goBack} />
                 </form>

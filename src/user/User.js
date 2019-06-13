@@ -9,6 +9,7 @@ class Post extends React.Component {
         this.state = {
             name: "",
             id: "",
+            bio: "",
             type: "all",
             posts: [],
             tPosts: 0,
@@ -33,7 +34,8 @@ class Post extends React.Component {
         axios.get(API_BASE_URL + "/userid/" + userId)
         .then(function (res) {
             thing.setState({
-                user: res.data.user
+                user: res.data.user,
+                bio: res.data.bio
             });
 
             thing.getPosts();
@@ -176,6 +178,7 @@ class Post extends React.Component {
         return (
             <div className="container">
                 <h1>User {this.state.user}'s profile</h1>
+                <p>{this.state.bio}</p>
                 <hr />
                 <h5>
                     <form style={{display: "flex", alignItems: "center"}} className="ex">

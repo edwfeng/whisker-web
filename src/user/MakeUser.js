@@ -6,7 +6,7 @@ import { setJWT } from "../utils";
 class MakeUser extends React.Component {
     constructor() {
         super();
-        this.state = {user: "", pass: ""};
+        this.state = {user: "", pass: "", bio: ""};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -19,11 +19,17 @@ class MakeUser extends React.Component {
         }
 
         let thing = this;
-    
-        axios.post(API_BASE_URL + "/users", {
+
+        let params = {
             user: this.state.user,
             pass: this.state.pass
-        })
+        }
+
+        if (this.state.bio !== "") {
+            params.bio = this.state.bio;
+        }
+    
+        axios.post(API_BASE_URL + "/users", params)
         .then(function (res) {
             setJWT(res.data.token);
             alert("Created new user " + thing.state.user);
@@ -50,7 +56,7 @@ class MakeUser extends React.Component {
     handlePasswordChange(event) {
         this.setState({pass:event.target.value.toString()})
     }
-    //render done
+    
     render() {
         return (
             <div className="container">
@@ -59,6 +65,8 @@ class MakeUser extends React.Component {
                     <input type="text" id="" placeholder= "Username "name="user" onChange={this.handleUsernameChange} />
                     <br/>
                     <input type="password" placeholder="Password" name="pass" onChange={this.handlePasswordChange} />
+                    <br/>
+                    <textarea placeholder="Bio" name="bio" onChange={(event) => this.setState({bio: event.target.value})} />
                     <br/>
                     <input type="submit" value="Submit" />
                     <input type="button" value="Cancel" className="bDanger" onClick={this.props.history.goBack} />
