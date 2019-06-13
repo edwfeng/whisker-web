@@ -116,7 +116,7 @@ class EditPost extends React.Component {
                     onChange={this.handleTitleChange}
                     value={this.state.title} />
                 <br />
-                <input type="text"
+                <textarea
                     placeholder="Text"
                     name="body"
                     onChange={this.handleBodyChange}

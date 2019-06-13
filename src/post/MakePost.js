@@ -111,7 +111,7 @@ class MakePost extends React.Component {
                 <h1>{viewString}</h1>
                 <input type="text" placeholder="Title" name="title" onChange={this.handleTitleChange} />
                 <br />
-                <input type="text" placeholder="Text" name="body" onChange={this.handleBodyChange} />
+                <textarea placeholder="Text" name="body" onChange={this.handleBodyChange} />
                 <br/>
                 <input type="submit" value="Submit" />
                 <input type="button" value="Cancel" className="bDanger" onClick={this.props.history.goBack} />
