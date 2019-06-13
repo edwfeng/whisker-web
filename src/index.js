@@ -21,15 +21,15 @@ let login = <div></div>
 if (getCookie("jwt") === "") {
     login = <li style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <Link to="/login">Login</Link>
-                <p>|</p>
+                <p>&nbsp;|&nbsp;</p>
                 <Link to="/signup">Register</Link>
             </li>
 } else {
     login = <li style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <Link to="/newpost">New Post</Link>
-                <p>|</p>
+                <p>&nbsp;|&nbsp;</p>
                 <Link to="/settings">Settings</Link>
-                <p>|</p>
+                <p>&nbsp;|&nbsp;</p>
                 <Link to="/logout">Logout</Link>
             </li>
 }

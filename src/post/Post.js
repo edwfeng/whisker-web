@@ -55,9 +55,9 @@ class Post extends React.Component {
                     editContent:
                         <div style={{display: "flex"}}>
                             <h5><Link to={"/post/" + res.data._id + "/edit"} className="link" onClick={thing.forceUpdate}>Edit post</Link></h5>
-                            <h5>|</h5>
+                            <h5>&nbsp;|&nbsp;</h5>
                             <h5><Link to={"/post/" + res.data._id + "/delete"} className="link" onClick={thing.forceUpdate}>Delete post</Link></h5>
-                            <h5>|</h5>
+                            <h5>&nbsp;|&nbsp;</h5>
                         </div>
                 })
             }
