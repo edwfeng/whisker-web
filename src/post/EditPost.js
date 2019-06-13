@@ -123,6 +123,7 @@ class EditPost extends React.Component {
                     value={this.state.body} />
                 <br/>
                 <input type="submit" value="Submit" />
+                <input type="button" value="Cancel" className="bDanger" onClick={() => this.props.history.push("/post/" + this.state.id)} />
             </form>
         </div>
         );

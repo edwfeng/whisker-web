@@ -35,3 +35,8 @@ form:not(.ex) {
   padding: 45px;
   text-align: center;
 }
+
+.bDanger {
+    background-color: $danger;
+    color: $lightText;
+}

@@ -112,6 +112,7 @@ class EditUser extends React.Component {
                     <input type="password" placeholder="Password" name="pass" onChange={this.handlePasswordChange} />
                     <br/>
                     <input type="submit" value="Submit" />
+                    <input type="button" value="Cancel" className="bDanger" onClick={this.props.history.goBack} />
                 </form>
             </div>
         );

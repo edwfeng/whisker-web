@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { API_BASE_URL, getCookie, postDateFormat, getUserId } from "../utils.js";
-import "./DeletePost.scss";
 
 class DeletePost extends React.Component {
     constructor() {
@@ -112,7 +111,7 @@ class DeletePost extends React.Component {
                     <h4>Posted {postDateFormat(this.state.date, this.state.edit)}</h4>
                     <hr />
                 </div>
-                <input type="button" value="Yes" id="delConfirm" onClick={() => this.handleSubmit()} />
+                <input type="button" value="Yes" className="bDanger" onClick={() => this.handleSubmit()} />
                 <input type="button" value="No" onClick={() => this.goBack()} />
             </form>
         </div>

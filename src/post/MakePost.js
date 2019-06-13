@@ -114,6 +114,7 @@ class MakePost extends React.Component {
                 <input type="text" placeholder="Text" name="body" onChange={this.handleBodyChange} />
                 <br/>
                 <input type="submit" value="Submit" />
+                <input type="button" value="Cancel" className="bDanger" onClick={this.props.history.goBack} />
             </form>
         </div>
         );
