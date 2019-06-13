@@ -7,8 +7,6 @@ class MakePost extends React.Component {
         super();
         this.state = {title: "", body: "", reply_to: "", parent_title: "", id: ""};
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleBodyChange = this.handleBodyChange.bind(this);
     }
 
     componentDidMount() {
@@ -92,14 +90,6 @@ class MakePost extends React.Component {
         event.preventDefault();
     }
 
-    handleTitleChange(event) {
-        this.setState({title: event.target.value.toString()});
-    }
-
-    handleBodyChange(event) {
-        this.setState({body: event.target.value.toString()});
-    }
-
     render() {
         let viewString = this.state.reply_to ?
             "Reply to \"" + this.state.parent_title + '"':
@@ -109,9 +99,9 @@ class MakePost extends React.Component {
         <div className="container">
             <form onSubmit={this.handleSubmit}>
                 <h1>{viewString}</h1>
-                <input type="text" placeholder="Title" name="title" onChange={this.handleTitleChange} />
-                <br />
-                <textarea placeholder="Text" name="body" onChange={this.handleBodyChange} />
+                <input type="text" placeholder="Title" name="title" onChange={(event) => this.setState({title: event.target.value})} />
+                <br/>
+                <textarea placeholder="Text" name="body" onChange={(event) => this.setState({body: event.target.value})} />
                 <br/>
                 <input type="submit" value="Submit" />
                 <input type="button" value="Cancel" className="bDanger" onClick={this.props.history.goBack} />

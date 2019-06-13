@@ -8,8 +8,6 @@ class MakeUser extends React.Component {
         super();
         this.state = {user: "", pass: "", bio: ""};
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleUsernameChange = this.handleUsernameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
     handleSubmit(event) {
@@ -49,22 +47,14 @@ class MakeUser extends React.Component {
         event.preventDefault();
     }
 
-    handleUsernameChange(event) {                                    
-        this.setState({user:event.target.value.toString()})
-    }
-
-    handlePasswordChange(event) {
-        this.setState({pass:event.target.value.toString()})
-    }
-    
     render() {
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit}>
                     <h1>Register</h1>
-                    <input type="text" id="" placeholder= "Username "name="user" onChange={this.handleUsernameChange} />
+                    <input type="text" id="" placeholder= "Username "name="user" onChange={(event) => this.setState({user: event.target.value})} />
                     <br/>
-                    <input type="password" placeholder="Password" name="pass" onChange={this.handlePasswordChange} />
+                    <input type="password" placeholder="Password" name="pass" onChange={(event) => this.setState({pass: event.target.value})} />
                     <br/>
                     <textarea placeholder="Bio" name="bio" onChange={(event) => this.setState({bio: event.target.value})} />
                     <br/>

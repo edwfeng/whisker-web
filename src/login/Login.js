@@ -7,8 +7,6 @@ class Login extends React.Component {
         super();
         this.state = {user: "", pass: ""};
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleUsernameChange = this.handleUsernameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
     handleSubmit(event) {
@@ -41,22 +39,14 @@ class Login extends React.Component {
         event.preventDefault();
     }
 
-    handleUsernameChange(event) {
-        this.setState({user: event.target.value.toString()})
-    }
-
-    handlePasswordChange(event) {
-        this.setState({pass: event.target.value.toString()})
-    }
-
     render() {
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit}>
                     <h1>Login</h1>
-                    <input type="text" placeholder="Username" name="user" onChange={this.handleUsernameChange} />
+                    <input type="text" placeholder="Username" name="user" onChange={(event) => this.setState({user: event.target.value})} />
                     <br/>
-                    <input type="password" placeholder="Password" name="pass" onChange={this.handlePasswordChange} />
+                    <input type="password" placeholder="Password" name="pass" onChange={(event) => this.setState({pass: event.target.value})} />
                     <br/>
                     <input type="submit" value="Submit" />
                     <input type="button" value="Cancel" className="bDanger" onClick={this.props.history.goBack} />

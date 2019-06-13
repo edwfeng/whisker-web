@@ -7,8 +7,6 @@ class EditPost extends React.Component {
         super();
         this.state = {title: "", body: "", id: "", gotData: false};
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleBodyChange = this.handleBodyChange.bind(this);
     }
 
     componentDidMount() {
@@ -97,14 +95,6 @@ class EditPost extends React.Component {
         event.preventDefault();
     }
 
-    handleTitleChange(event) {
-        this.setState({title: event.target.value.toString()});
-    }
-
-    handleBodyChange(event) {
-        this.setState({body: event.target.value.toString()});
-    }
-
     render() {
         return (
         <div className="container">
@@ -113,13 +103,13 @@ class EditPost extends React.Component {
                 <input type="text"
                     placeholder="Title"
                     name="title"
-                    onChange={this.handleTitleChange}
+                    onChange={(event) => this.setState({title: event.target.value})}
                     value={this.state.title} />
                 <br />
                 <textarea
                     placeholder="Text"
                     name="body"
-                    onChange={this.handleBodyChange}
+                    onChange={(event) => this.setState({body: event.target.value})}
                     value={this.state.body} />
                 <br/>
                 <input type="submit" value="Submit" />

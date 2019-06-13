@@ -8,8 +8,6 @@ class EditUser extends React.Component {
         super();
         this.state = {user: "", pass: "", bio: "", gotData: false};
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleUsernameChange = this.handleUsernameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
     componentDidMount() {
@@ -94,14 +92,6 @@ class EditUser extends React.Component {
         });
         event.preventDefault();
     }
-
-    handleUsernameChange(event) {                                    
-        this.setState({user:event.target.value.toString()})
-    }
-
-    handlePasswordChange(event) {
-        this.setState({pass:event.target.value.toString()})
-    }
     
     render() {
         return (
@@ -111,10 +101,10 @@ class EditUser extends React.Component {
                     <input type="text"
                         placeholder="Username"
                         name="user"
-                        onChange={this.handleUsernameChange}
+                        onChange={(event) => this.setState({user: event.target.value})}
                         value={this.state.user} />
                     <br />
-                    <input type="password" placeholder="Password" name="pass" onChange={this.handlePasswordChange} />
+                    <input type="password" placeholder="Password" name="pass" onChange={(event) => this.setState({pass: event.target.value})} />
                     <br/>
                     <textarea
                         placeholder="Bio"
