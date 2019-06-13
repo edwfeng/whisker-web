@@ -13,6 +13,7 @@ import MakeUser from "./user/MakeUser";
 import EditUser from "./user/EditUser";
 import ForwardUser from "./user/ForwardUser";
 import User from "./user/User";
+import DeleteUser from "./user/DeleteUser";
 import * as serviceWorker from './serviceWorker';
 import logo from './logo.png';
 
@@ -48,7 +49,8 @@ const routing = (
             <Route exact path="/" component={App} />
             <Route path="/signup"component={MakeUser}/>
             <Route path="/settings"component={EditUser}/>
-            <Route path="/user/:username" component={ForwardUser} />
+            <Route exact path="/user/:username" component={ForwardUser} />
+            <Route path="/user/:username/delete" component={DeleteUser} />
             <Route path="/useri/:userId" component={User} />
             <Route exact path="/post/:postId" component={Post} />
             <Route path="/post/:postId/reply" component={MakePost} />

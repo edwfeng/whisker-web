@@ -111,6 +111,9 @@ class EditUser extends React.Component {
                         name="bio"
                         onChange={(event) => this.setState({bio: event.target.value})}
                         value={this.state.bio} />
+                    <br /><br />
+                    <input type="button" value="Delete User" className="bDanger" onClick={() => this.props.history.push("/user/" + this.state.user + "/delete")} />
+                    <br /><br />
                     <input type="submit" value="Submit" />
                     <input type="button" value="Cancel" className="bDanger" onClick={this.props.history.goBack} />
                 </form>

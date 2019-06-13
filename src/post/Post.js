@@ -11,6 +11,7 @@ class Post extends React.Component {
             body: "",
             author: "",
             uid: "",
+            userDel: false,
             id: "",
             parent_id: "",
             parentContent: <div></div>,
@@ -39,6 +40,10 @@ class Post extends React.Component {
         thing.setState({id: postId});
         axios.get(API_BASE_URL + "/posts/" + postId)
         .then(function (res) {
+            if (res.data.user.deleted === true) {
+                thing.setState({userDel: true});
+            }
+
             thing.setState({
                 title: res.data.title,
                 body: res.data.text,
@@ -61,6 +66,7 @@ class Post extends React.Component {
                         </div>
                 })
             }
+            console.log(thing.state)
             thing.getParent();
             thing.getReplies();
             thing.forceUpdate();
@@ -86,6 +92,7 @@ class Post extends React.Component {
                     _id: post._id,
                     title: post.title,
                     uid: post.user_id,
+                    userDel: post.user.deleted ? true : false,
                     user: post.user,
                     date: new Date(post.created_at),
                     edit: new Date(post.updated_at)
@@ -150,15 +157,19 @@ class Post extends React.Component {
 
     renderRepliesList() {
         return (
-            this.state.replies.map((reply) => 
-                <div className="reply" key={reply._id}>
-                    <h4><Link to={"/post/" + reply._id} className="link" onClick={this.forceUpdate}>{reply.title}&nbsp;</Link></h4>
-                    <h5>By:&nbsp;
-                        <Link to={"/useri/" + reply.uid} className="link">{reply.user}</Link>
-                        &nbsp;on {postDateFormat(reply.date, reply.edit)}
-                    </h5>
-                </div>
-            )
+            this.state.replies.map((reply) => {
+                let byUser = <Link to={"/useri/" + reply.uid} className="link">{reply.user}</Link>
+                if (reply.userDel) {
+                    byUser = <div>[DELETED]</div>
+                }
+
+                return (
+                    <div className="reply" key={reply._id}>
+                        <h4><Link to={"/post/" + reply._id} className="link" onClick={this.forceUpdate}>{reply.title}&nbsp;</Link></h4>
+                        <h5 style={{display: "flex"}}>By:&nbsp; {byUser} &nbsp;on {postDateFormat(reply.date, reply.edit)}</h5>
+                    </div>
+                )
+            })
         )
     }
 
@@ -220,15 +231,16 @@ class Post extends React.Component {
     }
 
     render() {
+        let byUser = <Link to={"/useri/" + this.state.uid} className="link">{this.state.author}</Link>
+        if (this.state.userDel) {
+            byUser = <div>[DELETED]</div>
+        }
         return (
             <div className="container">
                 <div className="post">
                     <h1>{this.state.title}</h1>
                     <p>{this.state.body}</p>
-                    <h4>By:&nbsp;
-                        <Link to={"/useri/" + this.state.uid} className="link">{this.state.author}</Link>
-                        &nbsp;on {postDateFormat(this.state.date, this.state.edit)}
-                    </h4>
+                    <h4 style={{display: "flex"}}>By:&nbsp;{byUser}&nbsp;on {postDateFormat(this.state.date, this.state.edit)}</h4>
                     {this.state.parentContent}
                     <br />
                     <div style={{display: "flex"}}>
