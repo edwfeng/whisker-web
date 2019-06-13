@@ -1,7 +1,8 @@
 import { decode } from "jsonwebtoken";
 
 export function setJWT(cvalue) {
-    document.cookie = "jwt=" + cvalue + ";path=/";
+    let date = new Date(new Date().getTime() + (2*60*60*1000));
+    document.cookie = "jwt=" + cvalue + ";expires=" + date.toUTCString() + ";path=/";
 }
 
 export function delJWT() {

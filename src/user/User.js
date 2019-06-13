@@ -184,19 +184,19 @@ class Post extends React.Component {
                             <input type="radio" value="all"
                                 checked={this.state.type === "all"}
                                 onChange={this.handleRadioChange} />
-                            All&nbsp;
+                            &nbsp;All&nbsp;
                         </label>
                         <label>
                             <input type="radio" value="posts"
                                 checked={this.state.type === "posts"}
                                 onChange={this.handleRadioChange} />
-                            Posts&nbsp;
+                            &nbsp;Posts&nbsp;
                         </label>
                         <label>
                             <input type="radio" value="replies"
                                 checked={this.state.type === "replies"}
                                 onChange={this.handleRadioChange} />
-                            Replies&nbsp;
+                            &nbsp;Replies&nbsp;
                         </label>
                     </form>
                 </h5>
