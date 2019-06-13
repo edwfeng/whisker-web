@@ -53,7 +53,7 @@ class MakeUser extends React.Component {
     //render done
     render() {
         return (
-            <div class="container">
+            <div className="container">
                 <form onSubmit={this.handleSubmit}>
                     <h1>Register</h1>
                     <input type="text" id="" placeholder= "Username "name="user" onChange={this.handleUsernameChange} />
