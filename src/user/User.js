@@ -15,6 +15,7 @@ class Post extends React.Component {
             curPage: 0,
             tPages: 0
         }
+        this.handleRadioChange = this.handleRadioChange.bind(this);
     }
 
     componentDidMount() {
@@ -104,15 +105,24 @@ class Post extends React.Component {
         let ePost = (this.state.curPage + 1) * NUM_POSTS_PER_PAGE > this.state.tPosts ?
             this.state.tPosts :
             (this.state.curPage + 1) * NUM_POSTS_PER_PAGE;
-        let viewString = this.state.tPages === 1 ?
+        let viewString;
+        if (this.state.type !== "replies") {
+            viewString = this.state.tPages === 1 ?
             "Viewing all " + this.state.tPosts + " posts":
             "Viewing post" + ((sPost === ePost ?
                 " " + sPost :
                 "s " + sPost + "→" + ePost) + " of " + this.state.tPosts);
+        } else {
+            viewString = this.state.tPages === 1 ?
+            "Viewing all " + this.state.tPosts + " replies":
+            "Viewing repl" + ((sPost === ePost ?
+                "y " + sPost :
+                "ies " + sPost + "→" + ePost) + " of " + this.state.tPosts);
+        }
 
         return (
             <div style={{display: "flex", justifyContent: "space-between"}}>
-                <h6 className="link" onClick={() => this.getPosts()}>Refresh posts</h6>
+                <h6 className="link" onClick={() => this.getPosts()}>Refresh {this.state.type === "replies" ? "replies" : "posts"}</h6>
                 <h4 style={{display: "flex"}}>{this.renderPostPages()}</h4>
                 <h5>{viewString}</h5>
             </div>
@@ -157,10 +167,39 @@ class Post extends React.Component {
         )
     }
 
+    async handleRadioChange(event) {
+        await this.setState({type: event.target.value});
+        this.getPosts();
+    }
+
     render() {
         return (
             <div className="container">
                 <h1>User {this.state.user}'s profile</h1>
+                <hr />
+                <h5>
+                    <form style={{display: "flex", alignItems: "center"}} className="ex">
+                        View:&nbsp;
+                        <label>
+                            <input type="radio" value="all"
+                                checked={this.state.type === "all"}
+                                onChange={this.handleRadioChange} />
+                            All
+                        </label>
+                        <label>
+                            <input type="radio" value="posts"
+                                checked={this.state.type === "posts"}
+                                onChange={this.handleRadioChange} />
+                            Posts
+                        </label>
+                        <label>
+                            <input type="radio" value="replies"
+                                checked={this.state.type === "replies"}
+                                onChange={this.handleRadioChange} />
+                            Replies
+                        </label>
+                    </form>
+                </h5>
                 <hr />
                 {this.renderPosts()}
             </div>

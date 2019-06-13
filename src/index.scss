@@ -30,7 +30,7 @@ code {
   text-decoration: underline;
 }
 
-form {
+form:not(.ex) {
   margin: 5% auto;
   padding: 45px;
   text-align: center;
