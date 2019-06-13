@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { API_BASE_URL, getCookie } from "../utils.js";
+import { API_BASE_URL, getCookie, delJWT } from "../utils.js";
 
 class DeletePost extends React.Component {
     constructor() {
@@ -32,8 +32,10 @@ class DeletePost extends React.Component {
             }
         })
         .then(function () {
+            delJWT();
             alert("User deleted.");
             thing.props.history.push("/");
+            window.location.reload();
         })
         .catch(function (err) {
             console.log(err);
