@@ -10,6 +10,7 @@ class Post extends React.Component {
             title: "",
             body: "",
             author: "",
+            uid: "",
             id: "",
             parent_id: "",
             parentContent: <div></div>,
@@ -43,6 +44,7 @@ class Post extends React.Component {
                 body: res.data.text,
                 id: res.data._id,
                 author: res.data.user,
+                uid: res.data.user_id,
                 date: new Date(res.data.created_at),
                 edit: new Date(res.data.updated_at),
                 parent_id: res.data.parent_id
@@ -83,6 +85,7 @@ class Post extends React.Component {
                 posts.push({
                     _id: post._id,
                     title: post.title,
+                    uid: post.user_id,
                     user: post.user,
                     date: new Date(post.created_at),
                     edit: new Date(post.updated_at)
@@ -150,7 +153,10 @@ class Post extends React.Component {
             this.state.replies.map((reply) => 
                 <div className="reply" key={reply._id}>
                     <h4><Link to={"/post/" + reply._id} className="link" onClick={this.forceUpdate}>{reply.title}&nbsp;</Link></h4>
-                    <h5>By: {reply.user} on {postDateFormat(reply.date, reply.edit)}</h5>
+                    <h5>By:&nbsp;
+                        <Link to={"/user/" + reply.uid} className="link">{reply.user}</Link>
+                        &nbsp;on {postDateFormat(reply.date, reply.edit)}
+                    </h5>
                 </div>
             )
         )
@@ -219,7 +225,10 @@ class Post extends React.Component {
                 <div className="post">
                     <h1>{this.state.title}</h1>
                     <p>{this.state.body}</p>
-                    <h4>By: {this.state.author} on {postDateFormat(this.state.date, this.state.edit)}</h4>
+                    <h4>By:&nbsp;
+                        <Link to={"/user/" + this.state.uid} className="link">{this.state.author}</Link>
+                        &nbsp;on {postDateFormat(this.state.date, this.state.edit)}
+                    </h4>
                     {this.state.parentContent}
                     <br />
                     <div style={{display: "flex"}}>

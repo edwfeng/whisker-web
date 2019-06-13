@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { API_BASE_URL, getCookie, postDateFormat } from "../utils.js";
+import { API_BASE_URL, getCookie, postDateFormat, getUserId } from "../utils.js";
 import "./DeletePost.scss";
 
 class DeletePost extends React.Component {
@@ -73,7 +73,7 @@ class DeletePost extends React.Component {
         })
         .then(function () {
             alert("Post deleted.");
-            thing.props.history.push("/");
+            thing.props.history.push("/user/" + getUserId());
         })
         .catch(function (err) {
             console.log(err);

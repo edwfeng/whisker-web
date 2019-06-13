@@ -66,6 +66,7 @@ class EditUser extends React.Component {
         .then(function (res) {
             setJWT(res.data.token);
             alert("Success!");
+            thing.props.history.push("/user/" + res.data._id);
         })
         .catch(function (err) {
             console.log(err);
