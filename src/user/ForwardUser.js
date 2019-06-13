@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../utils.js";
 
-class EditPost extends React.Component {
+class ForwardUser extends React.Component {
     componentDidMount() {
         if (this.props.match.params.username) {
             this.forward(this.props.match.params.username);
@@ -43,4 +43,4 @@ class EditPost extends React.Component {
     }
 }
 
-export default EditPost;
+export default ForwardUser;

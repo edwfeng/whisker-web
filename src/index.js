@@ -18,6 +18,7 @@ import * as serviceWorker from './serviceWorker';
 import logo from './logo.png';
 
 import { getCookie } from "./utils.js";
+import ForwardWithJWT from './user/ForwardWithJWT';
 
 let login = <div></div>
 if (getCookie("jwt") === "") {
@@ -50,6 +51,7 @@ const routing = (
             <Route path="/signup"component={MakeUser}/>
             <Route path="/settings"component={EditUser}/>
             <Route exact path="/user/:username" component={ForwardUser} />
+            <Route exact path="/user" component={ForwardWithJWT} />
             <Route path="/user/:username/delete" component={DeleteUser} />
             <Route path="/useri/:userId" component={User} />
             <Route exact path="/post/:postId" component={Post} />
