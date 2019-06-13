@@ -75,6 +75,9 @@ class Post extends React.Component {
             console.log(err);
             if (err.response) {
                 alert(err.response.data.error);
+                if (err.response.status === 404 || err.response.status === 500) {
+                    thing.props.history.push("/");                    
+                }
             } else if (err.request) {
                 alert("Couldn't connect to server.");
             } else {
