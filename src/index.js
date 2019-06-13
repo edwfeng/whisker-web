@@ -11,6 +11,7 @@ import Login from "./login/Login";
 import Logout from "./login/Logout";
 import MakeUser from "./user/MakeUser";
 import EditUser from "./user/EditUser";
+import ForwardUser from "./user/ForwardUser";
 import User from "./user/User";
 import * as serviceWorker from './serviceWorker';
 import logo from './logo.png';
@@ -47,7 +48,8 @@ const routing = (
             <Route exact path="/" component={App} />
             <Route path="/signup"component={MakeUser}/>
             <Route path="/settings"component={EditUser}/>
-            <Route path="/user/:userId" component={User} />
+            <Route path="/user/:username" component={ForwardUser} />
+            <Route path="/useri/:userId" component={User} />
             <Route exact path="/post/:postId" component={Post} />
             <Route path="/post/:postId/reply" component={MakePost} />
             <Route path="/post/:postId/edit" component={EditPost} />

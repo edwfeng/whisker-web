@@ -154,7 +154,7 @@ class Post extends React.Component {
                 <div className="reply" key={reply._id}>
                     <h4><Link to={"/post/" + reply._id} className="link" onClick={this.forceUpdate}>{reply.title}&nbsp;</Link></h4>
                     <h5>By:&nbsp;
-                        <Link to={"/user/" + reply.uid} className="link">{reply.user}</Link>
+                        <Link to={"/useri/" + reply.uid} className="link">{reply.user}</Link>
                         &nbsp;on {postDateFormat(reply.date, reply.edit)}
                     </h5>
                 </div>
@@ -226,7 +226,7 @@ class Post extends React.Component {
                     <h1>{this.state.title}</h1>
                     <p>{this.state.body}</p>
                     <h4>By:&nbsp;
-                        <Link to={"/user/" + this.state.uid} className="link">{this.state.author}</Link>
+                        <Link to={"/useri/" + this.state.uid} className="link">{this.state.author}</Link>
                         &nbsp;on {postDateFormat(this.state.date, this.state.edit)}
                     </h4>
                     {this.state.parentContent}
